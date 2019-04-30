@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import withContainer from "./HOCs/withContainer";
 
-export default App;
+import Element from "./Components/Element";
+
+const App = ({ fields, handlerClick }) => (
+  <div className="App">
+    {fields.map(f => (
+      <div className={`field f-${f.num}`} key={f.num}>
+        {f.columns.map(c => (
+          <Element
+            handlerClick={handlerClick}
+            key={`${f.num}${c.num}`}
+            idx={c.num}
+            active={c.active}
+            field={f.num}
+          />
+        ))}
+      </div>
+    ))}
+  </div>
+);
+
+export default withContainer(App);
